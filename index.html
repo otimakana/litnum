@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+<title>Literasi & Numerasi — Presentasi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root{
+  --bg:#f5f7fb;
+  --ink:#172033;
+  --muted:#657089;
+  --blue:#3157d5;
+  --blue2:#5d7bea;
+  --cyan:#25a7c9;
+  --green:#2ca978;
+  --orange:#e99a3b;
+  --rose:#d86b87;
+  --card:#ffffff;
+  --line:#e6eaf2;
+  --shadow:0 20px 60px rgba(28,42,80,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink)}
+#stage{
+  position:relative;
+  width:100vw;height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  background:#111;
+}
+#deck{
+  width:min(100vw,177.7777778vh);
+  height:min(56.25vw,100vh);
+  position:relative;overflow:hidden;
+  background:var(--bg);
+}
+.slide{
+  position:absolute;inset:0;padding:70px 88px 62px;
+  display:none;overflow:hidden;
+  background:var(--bg);
+}
+.slide.active{display:block}
+.slide::before{
+  content:"";position:absolute;width:520px;height:520px;border-radius:50%;
+  right:-230px;top:-250px;background:rgba(49,87,213,.07);
+}
+.slide::after{
+  content:"";position:absolute;width:360px;height:360px;border-radius:50%;
+  left:-230px;bottom:-210px;background:rgba(37,167,201,.06);
+}
+.topline{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between}
+.kicker{
+  font-size:17px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--blue);
+}
+.page{font-size:15px;font-weight:700;color:#8791a7}
+h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;margin:0}
+h1{font-size:70px;line-height:1.02;letter-spacing:-.045em}
+h2{font-size:48px;line-height:1.08;letter-spacing:-.035em}
+.lead{font-size:24px;line-height:1.5;color:var(--muted)}
+.small{font-size:18px;line-height:1.55;color:var(--muted)}
+.hero{
+  position:relative;z-index:2;height:100%;
+  display:grid;grid-template-columns:1.12fr .88fr;gap:60px;align-items:center;
+}
+.hero-copy{padding-bottom:20px}
+.hero-copy .kicker{margin-bottom:24px}
+.hero-copy h1{max-width:850px}
+.hero-copy .lead{max-width:780px;margin-top:28px}
+.pill-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.pill{
+  padding:11px 17px;border-radius:999px;background:#fff;border:1px solid var(--line);
+  font-weight:700;font-size:15px;box-shadow:0 7px 20px rgba(20,30,60,.05)
+}
+.visual{
+  position:relative;min-height:560px;display:flex;align-items:center;justify-content:center
+}
+.orbit{width:500px;height:500px;border-radius:50%;border:1px dashed #cfd7ea;position:absolute;animation:spin 24s linear infinite}
+.orbit2{width:390px;height:390px;border-radius:50%;border:1px solid #e0e5f0;position:absolute;animation:spin 18s linear infinite reverse}
+.core{
+  width:245px;height:245px;border-radius:50%;background:linear-gradient(145deg,var(--blue),#738bea);
+  color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 30px 80px rgba(49,87,213,.3);animation:float 4s ease-in-out infinite;
+}
+.core .icon{font-size:60px;margin-bottom:8px}
+.core strong{font-size:28px;font-family:"Space Grotesk"}
+.node{
+  position:absolute;padding:17px 21px;background:#fff;border:1px solid var(--line);
+  border-radius:18px;box-shadow:var(--shadow);font-weight:800;display:flex;gap:10px;align-items:center;
+  animation:float 5s ease-in-out infinite;
+}
+.node.n1{top:48px;right:20px}.node.n2{bottom:65px;left:25px;animation-delay:-1.4s}
+.node.n3{top:185px;left:0;animation-delay:-2.2s}.node.n4{bottom:135px;right:5px;animation-delay:-3s}
+
+.section-title{position:relative;z-index:2;margin-top:24px;max-width:1050px}
+.section-title p{margin:20px 0 0;max-width:1050px}
+.grid2{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:44px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:25px;padding:31px;
+  box-shadow:0 14px 40px rgba(30,45,80,.07);position:relative;overflow:hidden;
+}
+.card::after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-80px;bottom:-80px;background:rgba(49,87,213,.06)}
+.card-head{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.badge{
+  width:54px;height:54px;border-radius:16px;display:grid;place-items:center;
+  font-size:25px;background:#edf1ff;color:var(--blue)
+}
+.card h3{font-size:25px}
+.list{display:grid;gap:15px;margin:0;padding:0;list-style:none}
+.list li{display:flex;gap:13px;align-items:flex-start;font-size:18px;line-height:1.45}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--blue);margin-top:8px;flex:none}
+.numeracy .dot{background:var(--green)}
+
+.compare{
+  position:relative;z-index:2;margin-top:36px;background:#fff;border:1px solid var(--line);
+  border-radius:25px;overflow:hidden;box-shadow:0 14px 40px rgba(30,45,80,.07)
+}
+.compare-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr}
+.compare-grid>div{padding:17px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:17px;line-height:1.4}
+.compare-grid>div:nth-child(3n){border-right:0}
+.compare-grid .head{font-weight:800;background:#f0f3fb;color:#243252}
+.compare-grid .aspect{font-weight:800;color:#4f5b73}
+.compare-grid>div:nth-last-child(-n+3){border-bottom:0}
+
+.importance{position:relative;z-index:2;display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center;margin-top:38px}
+.reason-list{display:grid;gap:14px}
+.reason{
+  display:grid;grid-template-columns:54px 1fr;align-items:center;gap:16px;padding:17px 20px;
+  background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(20,30,60,.05)
+}
+.reason .num{width:46px;height:46px;border-radius:14px;background:#edf1ff;color:var(--blue);display:grid;place-items:center;font-weight:800;font-size:18px}
+.reason strong{font-size:20px}
+.quote{
+  border-radius:28px;background:linear-gradient(145deg,#172d76,#3157d5);color:#fff;
+  padding:45px;min-height:380px;display:flex;flex-direction:column;justify-content:center;
+  box-shadow:0 28px 70px rgba(49,87,213,.27);position:relative;overflow:hidden
+}
+.quote::before{content:"“";position:absolute;font-size:260px;line-height:1;opacity:.1;top:-50px;left:15px;font-family:Georgia}
+.quote p{font-family:"Space Grotesk";font-size:34px;line-height:1.22;position:relative}
+.quote span{font-size:16px;opacity:.75;position:relative}
+
+.daily{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:36px}
+.example-card{
+  background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px;box-shadow:0 14px 40px rgba(30,45,80,.07)
+}
+.example-card.lit{border-top:6px solid var(--blue)}
+.example-card.num{border-top:6px solid var(--green)}
+.example-card h3{font-size:28px;margin-bottom:22px}
+.example{display:flex;gap:13px;padding:13px 0;border-bottom:1px solid #edf0f5;font-size:18px;line-height:1.45}
+.example:last-child{border-bottom:0}
+.example .ico{width:28px;flex:none}
+
+.strategy{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:38px}
+.strategy .card{min-height:355px}
+.card.litline{border-top:6px solid var(--blue)}
+.card.numline{border-top:6px solid var(--green)}
+.step{display:flex;gap:14px;margin:15px 0;font-size:18px;line-height:1.45}
+.step b{width:30px;height:30px;border-radius:10px;background:#eef2ff;color:var(--blue);display:grid;place-items:center;flex:none;font-size:14px}
+.numline .step b{background:#e9f8f1;color:var(--green)}
+
+.teacher{
+  position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center;margin-top:42px
+}
+.teacher-copy .lead{margin-top:18px}
+.subjects{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.subject{
+  background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;
+  box-shadow:0 12px 35px rgba(20,30,60,.06);min-height:140px
+}
+.subject .emoji{font-size:32px}
+.subject strong{display:block;font-size:19px;margin-top:10px}
+.subject span{font-size:15px;color:var(--muted);line-height:1.4}
+
+.final{
+  position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center
+}
+.final .kicker{margin-bottom:18px}
+.final h2{font-size:68px;max-width:1050px}
+.final p{font-size:24px;color:var(--muted);max-width:850px;line-height:1.5;margin:25px auto}
+.dual{
+  display:flex;gap:18px;margin-top:22px
+}
+.dual span{padding:14px 22px;background:#fff;border:1px solid var(--line);border-radius:999px;font-weight:800}
+
+.controls{
+  position:absolute;z-index:50;left:24px;right:24px;bottom:18px;display:flex;align-items:center;gap:14px;
+  pointer-events:none;opacity:0;transition:.25s
+}
+#stage:hover .controls{opacity:1}
+.controls button{
+  pointer-events:auto;border:0;background:rgba(20,27,44,.78);color:#fff;width:42px;height:42px;border-radius:13px;
+  cursor:pointer;font-size:18px;backdrop-filter:blur(10px)
+}
+.progress{height:4px;flex:1;background:rgba(20,27,44,.15);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;width:12.5%;background:var(--blue);transition:width .35s}
+.counter{font-size:13px;font-weight:800;color:#59657d;background:rgba(255,255,255,.85);padding:9px 12px;border-radius:11px}
+.hint{position:absolute;z-index:51;right:25px;top:20px;background:rgba(255,255,255,.8);padding:8px 11px;border-radius:10px;font-size:12px;color:#738099}
+
+.reveal > *{opacity:0;transform:translateY(22px)}
+.slide.active .reveal > *{animation:reveal .7s cubic-bezier(.2,.75,.25,1) forwards}
+.slide.active .reveal > *:nth-child(2){animation-delay:.08s}
+.slide.active .reveal > *:nth-child(3){animation-delay:.16s}
+.slide.active .reveal > *:nth-child(4){animation-delay:.24s}
+.slide.active .reveal > *:nth-child(5){animation-delay:.32s}
+@keyframes reveal{to{opacity:1;transform:none}}
+@keyframes float{50%{transform:translateY(-10px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:900px){
+  #deck{width:100vw;height:56.25vw;min-height:100vh}
+  .slide{padding:35px}
+  h1{font-size:42px}h2{font-size:32px}.lead{font-size:17px}
+  .hero,.importance,.teacher{grid-template-columns:1fr}
+  .visual{display:none}.grid2,.daily,.strategy{grid-template-columns:1fr}
+  .compare-grid>div{font-size:11px;padding:10px}
+  .card{padding:20px}.list li,.step,.example{font-size:14px}
+}
+
+/* ===== RESPONSIVE + MOBILE PRESENTATION ===== */
+html,body{overscroll-behavior:none}
+body{min-height:100dvh}
+#stage{min-height:100dvh}
+#deck{max-width:100vw;max-height:100dvh}
+.controls button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+body.touch-device .hint{display:none}
+
+:fullscreen #stage, :-webkit-full-screen #stage{width:100vw;height:100dvh}
+:fullscreen #deck, :-webkit-full-screen #deck{
+  width:100vw;height:100dvh;max-width:none;max-height:none;
+}
+
+@media (max-width:700px){
+  body{background:var(--bg);overflow:hidden}
+  #stage{display:block;width:100vw;height:100dvh}
+  #deck{
+    width:100vw;height:100dvh;max-width:none;max-height:none;
+    overflow:hidden;background:var(--bg)
+  }
+  .slide{
+    padding:34px 20px 92px;
+    overflow-y:auto;overflow-x:hidden;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .slide::-webkit-scrollbar{display:none}
+  .slide::before{width:280px;height:280px;right:-170px;top:-140px}
+  .slide::after{width:220px;height:220px;left:-150px;bottom:-130px}
+  .topline{margin-bottom:8px}
+  .kicker{font-size:11px;letter-spacing:.1em}
+  .page{font-size:11px}
+  h1{font-size:clamp(42px,12vw,60px);line-height:1}
+  h2{font-size:clamp(30px,8.2vw,42px);line-height:1.08}
+  h3{font-size:22px}
+  .lead{font-size:17px;line-height:1.5}
+  .small{font-size:15px;line-height:1.55}
+  .hero{display:block;height:auto;min-height:calc(100dvh - 130px);padding-top:7vh}
+  .hero-copy{padding:0}
+  .hero-copy .lead{margin-top:20px}
+  .pill-row{margin-top:22px;gap:8px}
+  .pill{font-size:12px;padding:9px 12px}
+  .visual{display:none}
+  .section-title{margin-top:20px}
+  .section-title p{margin-top:14px}
+  .grid2,.daily,.strategy,.teacher,.importance{
+    grid-template-columns:1fr;gap:16px;margin-top:24px
+  }
+  .card,.example-card,.subject,.reason{border-radius:18px;padding:20px}
+  .card-head{margin-bottom:16px}
+  .badge{width:44px;height:44px;border-radius:13px;font-size:21px}
+  .list{gap:11px}
+  .list li,.step,.example{font-size:15px;line-height:1.45}
+  .step{margin:11px 0}
+  .step b{width:27px;height:27px;border-radius:8px;font-size:11px}
+  .compare{
+    margin-top:22px;border-radius:17px;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .compare-grid{min-width:620px;grid-template-columns:105px 1fr 1fr}
+  .compare-grid>div{font-size:13px;padding:12px 13px}
+  .reason-list{gap:10px}
+  .reason{grid-template-columns:42px 1fr;gap:11px;padding:13px}
+  .reason .num{width:38px;height:38px;border-radius:11px;font-size:14px}
+  .reason strong{font-size:15px}
+  .quote{min-height:240px;padding:28px;border-radius:20px}
+  .quote p{font-size:25px}
+  .subjects{grid-template-columns:1fr 1fr;gap:10px}
+  .subject{min-height:120px;padding:16px}
+  .subject .emoji{font-size:26px}
+  .subject strong{font-size:16px;margin-top:7px}
+  .subject span{font-size:12px}
+  .final{height:auto;min-height:calc(100dvh - 130px);padding:10vh 0 30px}
+  .final h2{font-size:clamp(35px,9vw,52px)}
+  .final p{font-size:17px}
+  .dual{flex-direction:column;width:100%;gap:9px}
+  .dual span{font-size:13px;padding:11px 14px}
+  .controls{
+    left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));
+    gap:7px;opacity:1;padding:7px;border-radius:16px;
+    background:rgba(255,255,255,.88);box-shadow:0 10px 30px rgba(20,30,60,.13);
+    backdrop-filter:blur(12px);
+  }
+  .controls button{width:39px;height:39px;border-radius:11px;background:#1c2741;font-size:20px}
+  .progress{background:#dfe4ee;height:4px}
+  .counter{font-size:11px;padding:8px 9px;white-space:nowrap}
+}
+@media (max-width:390px){
+  .slide{padding-left:16px;padding-right:16px}
+  .subjects{grid-template-columns:1fr}
+  .subject{min-height:auto}
+  .pill{font-size:11px}
+}
+@media (min-width:701px) and (max-height:650px){
+  .slide{padding:35px 55px 55px}
+  h1{font-size:52px}h2{font-size:38px}.lead{font-size:18px}
+  .visual{min-height:390px}.orbit{width:340px;height:340px}
+  .orbit2{width:270px;height:270px}.core{width:175px;height:175px}
+}
+body.app-fullscreen #stage{
+  position:fixed;inset:0;width:100vw;height:100dvh;z-index:99999;background:var(--bg)
+}
+body.app-fullscreen #deck{
+  width:100vw;height:100dvh;max-width:none;max-height:none
+}
+
+</style>
+</head>
+<body>
+<div id="stage">
+<div id="deck">
+
+<section class="slide active">
+  <div class="hero reveal">
+    <div class="hero-copy">
+      <div class="kicker">Penguatan Kompetensi</div>
+      <h1>Literasi &<br><span style="color:var(--blue)">Numerasi</span></h1>
+      <p class="lead">Dua kompetensi yang membantu peserta didik memahami informasi, berpikir kritis, memecahkan masalah, dan mengambil keputusan dalam kehidupan sehari-hari.</p>
+      <div class="pill-row">
+        <span class="pill">📖 Memahami informasi</span>
+        <span class="pill">📊 Membaca data</span>
+        <span class="pill">🧠 Berpikir kritis</span>
+      </div>
+    </div>
+    <div class="visual">
+      <div class="orbit"></div><div class="orbit2"></div>
+      <div class="core"><div class="icon">◈</div><strong>LITERASI<br>& NUMERASI</strong></div>
+      <div class="node n1">📖 Teks</div><div class="node n2">📊 Data</div>
+      <div class="node n3">💡 Makna</div><div class="node n4">🧩 Solusi</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="topline"><div class="kicker">01 · Konsep Dasar</div><div class="page">2 / 8</div></div>
+  <div class="section-title reveal">
+    <h2>Apa yang dimaksud Literasi & Numerasi?</h2>
+    <p class="lead">Keduanya bukan sekadar kemampuan membaca atau berhitung, tetapi kemampuan menggunakan informasi untuk memahami dan menghadapi kehidupan.</p>
+  </div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="card-head"><div class="badge">📖</div><h3>Literasi</h3></div>
+      <ul class="list">
+        <li><span class="dot"></span><span>Memahami, menggunakan, mengevaluasi, dan merefleksikan berbagai jenis teks.</span></li>
+        <li><span class="dot"></span><span>Memahami informasi melalui teks cetak maupun digital.</span></li>
+        <li><span class="dot"></span><span>Menggunakan informasi dalam kehidupan sehari-hari.</span></li>
+      </ul>
+    </div>
+    <div class="card numeracy">
+      <div class="card-head"><div class="badge" style="background:#e9f8f1;color:var(--green)">📊</div><h3>Numerasi</h3></div>
+      <ul class="list">
+        <li><span class="dot"></span><span>Menggunakan konsep, prosedur, fakta, dan alat matematika.</span></li>
+        <li><span class="dot"></span><span>Membaca angka, memahami data, dan melakukan perhitungan.</span></li>
+        <li><span class="dot"></span><span>Mengambil keputusan berdasarkan informasi kuantitatif.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="topline"><div class="kicker">02 · Komponen Utama</div><div class="page">3 / 8</div></div>
+  <div class="section-title reveal">
+    <h2>Dua kompetensi, empat kemampuan inti</h2>
+    <p class="lead">Literasi dan numerasi dibangun melalui kemampuan yang saling melengkapi.</p>
+  </div>
+  <div class="grid2 reveal" style="margin-top:38px">
+    <div class="card">
+      <div class="card-head"><div class="badge">📖</div><h3>Komponen Literasi</h3></div>
+      <div class="step"><b>01</b><span>Memahami berbagai jenis teks</span></div>
+      <div class="step"><b>02</b><span>Menemukan informasi penting</span></div>
+      <div class="step"><b>03</b><span>Mengevaluasi kredibilitas informasi</span></div>
+      <div class="step"><b>04</b><span>Menggunakan informasi untuk mengambil keputusan</span></div>
+    </div>
+    <div class="card numline">
+      <div class="card-head"><div class="badge" style="background:#e9f8f1;color:var(--green)">📊</div><h3>Komponen Numerasi</h3></div>
+      <div class="step"><b>01</b><span>Memahami informasi berbentuk angka dan data</span></div>
+      <div class="step"><b>02</b><span>Membaca tabel, grafik, dan diagram</span></div>
+      <div class="step"><b>03</b><span>Menganalisis dan menafsirkan data</span></div>
+      <div class="step"><b>04</b><span>Menggunakan penalaran matematika dalam masalah nyata</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="topline"><div class="kicker">03 · Perbandingan</div><div class="page">4 / 8</div></div>
+  <div class="section-title reveal">
+    <h2>Literasi ≠ Numerasi</h2>
+    <p class="lead">Saling melengkapi, tetapi memiliki fokus, kemampuan utama, produk kemampuan, dan contoh penerapan yang berbeda.</p>
+  </div>
+  <div class="compare reveal">
+    <div class="compare-grid">
+      <div class="head">Aspek</div><div class="head">📖 Literasi</div><div class="head">📊 Numerasi</div>
+      <div class="aspect">Fokus</div><div>Bahasa dan informasi</div><div>Angka dan data</div>
+      <div class="aspect">Kemampuan utama</div><div>Membaca, memahami, mengevaluasi</div><div>Menghitung, menganalisis, memecahkan masalah</div>
+      <div class="aspect">Produk kemampuan</div><div>Memahami dan mengevaluasi makna</div><div>Menggunakan data untuk mengambil keputusan</div>
+      <div class="aspect">Contoh penerapan</div><div>Memahami isi artikel</div><div>Membaca dan menafsirkan grafik</div>
+      <div class="aspect">Digunakan untuk</div><div>Mengolah informasi verbal</div><div>Mengolah informasi kuantitatif</div>
+      <div class="aspect">Instrumen nasional</div><div>AKM Literasi Membaca</div><div>AKM Numerasi</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="topline"><div class="kicker">04 · Mengapa Penting?</div><div class="page">5 / 8</div></div>
+  <div class="section-title reveal"><h2>Mengapa literasi & numerasi penting?</h2></div>
+  <div class="importance reveal">
+    <div class="reason-list">
+      <div class="reason"><div class="num">01</div><strong>Membantu siswa berpikir kritis</strong></div>
+      <div class="reason"><div class="num">02</div><strong>Meningkatkan kemampuan menyelesaikan masalah</strong></div>
+      <div class="reason"><div class="num">03</div><strong>Membantu memahami dunia nyata</strong></div>
+      <div class="reason"><div class="num">04</div><strong>Mendukung pembelajaran sepanjang hayat</strong></div>
+      <div class="reason"><div class="num">05</div><strong>Menjadi dasar kompetensi abad 21</strong></div>
+    </div>
+    <div class="quote">
+      <p>Informasi menjadi bermakna ketika kita mampu memahami, menilai, dan menggunakannya.</p>
+      <span>Literasi + Numerasi → kompetensi untuk kehidupan</span>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="topline"><div class="kicker">05 · Konteks Nyata</div><div class="page">6 / 8</div></div>
+  <div class="section-title reveal">
+    <h2>Literasi & numerasi ada di sekitar kita</h2>
+    <p class="lead">Kompetensi ini hadir dalam aktivitas sederhana sehari-hari.</p>
+  </div>
+  <div class="daily reveal">
+    <div class="example-card lit">
+      <h3>📖 Contoh Literasi</h3>
+      <div class="example"><span class="ico">01</span><span>Membaca buku dan memahami inti ceritanya</span></div>
+      <div class="example"><span class="ico">02</span><span>Memahami isi berita atau artikel di media</span></div>
+      <div class="example"><span class="ico">03</span><span>Membuat laporan atau rangkuman dari bacaan</span></div>
+      <div class="example"><span class="ico">04</span><span>Mengevaluasi kebenaran informasi di internet</span></div>
+    </div>
+    <div class="example-card num">
+      <h3>📊 Contoh Numerasi</h3>
+      <div class="example"><span class="ico">01</span><span>Menghitung uang belanja dan kembalian</span></div>
+      <div class="example"><span class="ico">02</span><span>Membaca dan menafsirkan grafik atau tabel data</span></div>
+      <div class="example"><span class="ico">03</span><span>Memahami perhitungan diskon saat berbelanja</span></div>
+      <div class="example"><span class="ico">04</span><span>Membandingkan harga per satuan produk berdasarkan data</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="topline"><div class="kicker">06 · Strategi Sekolah</div><div class="page">7 / 8</div></div>
+  <div class="section-title reveal">
+    <h2>Bagaimana memperkuatnya?</h2>
+    <p class="lead">Penguatan dilakukan secara konsisten dan kontekstual, baik oleh guru maupun manajemen sekolah.</p>
+  </div>
+  <div class="strategy reveal">
+    <div class="card litline">
+      <div class="card-head"><div class="badge">📖</div><h3>Strategi Literasi</h3></div>
+      <div class="step"><b>01</b><span>Membiasakan kegiatan membaca rutin, terjadwal maupun mandiri.</span></div>
+      <div class="step"><b>02</b><span>Mengadakan diskusi mendalam mengenai isi teks.</span></div>
+      <div class="step"><b>03</b><span>Melatih siswa membuat rangkuman dari berbagai bacaan.</span></div>
+      <div class="step"><b>04</b><span>Mengajarkan evaluasi kredibilitas sumber informasi.</span></div>
+    </div>
+    <div class="card numline">
+      <div class="card-head"><div class="badge" style="background:#e9f8f1;color:var(--green)">📊</div><h3>Strategi Numerasi</h3></div>
+      <div class="step"><b>01</b><span>Memberikan latihan soal yang kontekstual.</span></div>
+      <div class="step"><b>02</b><span>Melatih membaca dan menafsirkan grafik atau tabel.</span></div>
+      <div class="step"><b>03</b><span>Menerapkan proyek pembelajaran berbasis data.</span></div>
+      <div class="step"><b>04</b><span>Menghubungkan matematika dengan masalah kehidupan nyata.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="topline"><div class="kicker">07 · Peran Guru</div><div class="page">8 / 8</div></div>
+  <div class="teacher reveal">
+    <div class="teacher-copy">
+      <div class="kicker">Lintas Mata Pelajaran</div>
+      <h2 style="margin-top:18px">Literasi & numerasi adalah tanggung jawab bersama.</h2>
+      <p class="lead">Bukan hanya guru Bahasa Indonesia dan Matematika. Kedua kompetensi melekat pada hampir semua aktivitas belajar.</p>
+      <p class="small">Guru IPA dapat melatih numerasi melalui tabel hasil eksperimen. Guru IPS memperkuat literasi dan numerasi melalui grafik ekonomi atau kependudukan. Guru Bahasa mengembangkan analisis dan evaluasi berbagai jenis teks.</p>
+    </div>
+    <div class="subjects">
+      <div class="subject"><div class="emoji">🧪</div><strong>IPA</strong><span>Membaca & menafsirkan tabel hasil eksperimen.</span></div>
+      <div class="subject"><div class="emoji">🌏</div><strong>IPS</strong><span>Membaca grafik ekonomi/kependudukan.</span></div>
+      <div class="subject"><div class="emoji">📚</div><strong>Bahasa</strong><span>Analisis & evaluasi informasi dari teks.</span></div>
+      <div class="subject"><div class="emoji">➗</div><strong>Matematika</strong><span>Penalaran kuantitatif dalam masalah nyata.</span></div>
+    </div>
+  </div>
+  <div class="final reveal" style="display:none"></div>
+</section>
+
+<section class="slide">
+  <div class="final reveal">
+    <div class="kicker">Penutup</div>
+    <h2>Memahami informasi.<br>Mengolah data.<br><span style="color:var(--blue)">Mengambil keputusan.</span></h2>
+    <p>Kompetensi literasi dan numerasi tidak dapat dipisahkan dalam proses belajar siswa.</p>
+    <div class="dual"><span>📖 Literasi → bahasa & informasi</span><span>📊 Numerasi → angka & data</span></div>
+  </div>
+</section>
+
+<div class="hint">← → navigasi · F fullscreen · Space lanjut</div>
+<div class="controls">
+  <button id="prev" aria-label="Sebelumnya">‹</button>
+  <button id="next" aria-label="Berikutnya">›</button>
+  <div class="progress"><i id="bar"></i></div>
+  <div class="counter" id="counter">1 / 9</div>
+  <button id="fs" aria-label="Fullscreen">⛶</button>
+</div>
+
+</div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let index=0;
+const bar=document.getElementById('bar');
+const counter=document.getElementById('counter');
+
+function show(n){
+  index=(n+slides.length)%slides.length;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===index));
+  bar.style.width=((index+1)/slides.length*100)+'%';
+  counter.textContent=(index+1)+' / '+slides.length;
+}
+function next(){show(index+1)}
+function prev(){show(index-1)}
+document.getElementById('next').onclick=next;
+document.getElementById('prev').onclick=prev;
+async function toggleFullscreen(){
+  const root=document.documentElement;
+  const btn=document.getElementById('fs');
+  const active=!!(document.fullscreenElement||document.webkitFullscreenElement);
+
+  if(document.body.classList.contains('app-fullscreen')){
+    document.body.classList.remove('app-fullscreen');
+    btn.textContent='⛶';
+    return;
+  }
+  if(active){
+    try{
+      if(document.exitFullscreen) await document.exitFullscreen();
+      else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+    }catch(e){}
+    return;
+  }
+  try{
+    if(root.requestFullscreen){
+      await root.requestFullscreen({navigationUI:"hide"});
+      return;
+    }
+    if(root.webkitRequestFullscreen){
+      root.webkitRequestFullscreen();
+      return;
+    }
+  }catch(e){}
+  document.body.classList.add('app-fullscreen');
+  btn.textContent='✕';
+}
+document.getElementById('fs').onclick=toggleFullscreen;
+
+function updateFullscreenButton(){
+  const active=!!(document.fullscreenElement||document.webkitFullscreenElement)||
+    document.body.classList.contains('app-fullscreen');
+  document.getElementById('fs').textContent=active?'✕':'⛶';
+}
+document.addEventListener('fullscreenchange',updateFullscreenButton);
+document.addEventListener('webkitfullscreenchange',updateFullscreenButton);
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next()}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}
+  if(e.key.toLowerCase()==='f') document.documentElement.requestFullscreen?.();
+  if(e.key==='Home') show(0);
+  if(e.key==='End') show(slides.length-1);
+});
+let touchX=null;
+document.addEventListener('touchstart',e=>touchX=e.changedTouches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  if(touchX===null)return;
+  const dx=e.changedTouches[0].clientX-touchX;
+  if(Math.abs(dx)>50) dx<0?next():prev();
+  touchX=null;
+},{passive:true});
+if(('ontouchstart' in window)||navigator.maxTouchPoints>0){
+  document.body.classList.add('touch-device');
+}
+const observer=new MutationObserver(()=>{
+  const active=document.querySelector('.slide.active');
+  if(active) active.scrollTop=0;
+});
+observer.observe(document.getElementById('deck'),{
+  subtree:true,attributes:true,attributeFilter:['class']
+});
+show(0);
+</script>
+</body>
+                                                                                                                  </html>
